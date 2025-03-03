@@ -7,7 +7,6 @@
 ![GitHub Forks](https://img.shields.io/github/forks/shaz3e/laravel-dev-kit)
 ![GitHub Issues](https://img.shields.io/github/issues/shaz3e/laravel-dev-kit)
 ![GitHub License](https://img.shields.io/github/license/shaz3e/laravel-dev-kit)
-![Packagist Downloads](https://img.shields.io/packagist/dt/shaz3e/laravel-dev-kit)
 
 # Laravel Dev Kit
 
