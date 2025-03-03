@@ -1,3 +1,5 @@
+# Laravel Dev Kit
+
 ![Code Quality](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/code-quality.yml/badge.svg)
 ![Laravel Tests](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/laravel.yml/badge.svg)
 ![Linting](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/lint.yml/badge.svg)
@@ -7,8 +9,6 @@
 ![GitHub Forks](https://img.shields.io/github/forks/shaz3e/laravel-dev-kit)
 ![GitHub Issues](https://img.shields.io/github/issues/shaz3e/laravel-dev-kit)
 ![GitHub License](https://img.shields.io/github/license/shaz3e/laravel-dev-kit)
-
-# Laravel Dev Kit
 
 Laravel Dev Kit is a starter kit for Laravel applications, designed to save time and set up your projects with a standardized environment. It includes pre-configured tools for code linting, formatting, and CI/CD workflows, ensuring code quality and consistency.
 
