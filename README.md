@@ -1,4 +1,4 @@
-![Duster Fix Blame](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/duster-fix-blame.yml/badge.svg)
+![Code Quality](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/code-quality.yml/badge.svg)
 ![Laravel Tests](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/laravel.yml/badge.svg)
 ![Linting](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/lint.yml/badge.svg)
 ![Prettier Formatting](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/prettier-write.yml/badge.svg)
@@ -28,17 +28,12 @@ Laravel Dev Kit is a starter kit for Laravel applications, designed to save time
 
 - **Linting and Formatting**:
 
-    - `LaraStan` for static analysis
     - `Pint` for PHP code formatting
     - Prettier for JavaScript, CSS, and other frontend assets
-    - `postcss` for processing CSS
 
 - **Custom Configuration Files**:
     - `.prettierrc` and `.prettierignore` for Prettier
     - `lint-staged.config.js` for staged file linting
-    - `phpstan.neon.dist` for PHPStan configuration
-    - `pint.json` for Pint settings
-    - `.git-blame-ignore-revs` for ignoring certain commits in git blame output
 
 ---
 
@@ -48,7 +43,7 @@ Laravel Dev Kit is a starter kit for Laravel applications, designed to save time
 /
 |-- .gitHub
 |   |-- workflows
-|   |   |-- duster-fix-blame.yml
+|   |   |-- code-quality.yml
 |   |   |-- laravel.yml
 |   |   |-- lint.yml
 |   |   |-- prettier-write.yml
@@ -60,12 +55,8 @@ Laravel Dev Kit is a starter kit for Laravel applications, designed to save time
 |   |-- pre-commit
 |
 |-- .prettierrc
-|-- .git-blame-ignore-revs
 |-- .prettierignore
 |-- lint-staged.config.js
-|-- phpstan.neon.dist
-|-- pint.json
-|-- postcss.config.js
 ```
 
 ---
@@ -130,7 +121,7 @@ Laravel Dev Kit is a starter kit for Laravel applications, designed to save time
 
 The `.github/workflows` folder includes:
 
-- **duster-fix-blame.yml**: Automatically fix coding standards and blame-ignore files.
+- **code-quality.yml**: Automatically fix coding standards and blame-ignore files.
 - **laravel.yml**: Run tests and ensure application stability.
 - **lint.yml**: Run PHP, CSS, and JS lint checks.
 - **prettier-write.yml**: Enforce Prettier standards across supported files.
@@ -162,13 +153,10 @@ Laravel Dev Kit simplifies the setup process for Laravel applications, integrati
 This project utilizes and integrates various tools and resources to provide an optimized development experience. Special thanks to:
 
 - Laravel: For providing a robust PHP framework.
-- LaraStan: For powerful static analysis tailored to Laravel applications.
-- PHPStan: A static analysis tool that ensures code quality.
 - Pint: Laravel's official code formatter for PHP.
 - Prettier: An opinionated code formatter for JavaScript, CSS, and more.
 - Husky: For Git hooks management to automate checks and ensure quality.
 - Lint-Staged: For running linters against staged Git files.
-- PostCSS: For CSS transformations and optimizations.
 - GitHub Actions: For seamless CI/CD workflows.
 
 We acknowledge these open-source tools, frameworks, and the global development community for their contributions.

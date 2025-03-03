@@ -1,0 +1,80 @@
+name: Code Quality Checks
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+
+jobs:
+  code_quality:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Node.js Dependencies
+        run: npm install
+
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: composer
+          coverage: none
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Get Modified PHP Files
+        id: changed_files
+        run: echo "FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -E '\.php$' | xargs)" >> $GITHUB_ENV
+
+      - name: Run Prettier (Blade + Tailwind) on Modified Files
+        if: env.FILES != ''
+        run: npx prettier --write $FILES
+
+      - name: Run Laravel Pint on Modified Files
+        if: env.FILES != ''
+        run: ./vendor/bin/pint $FILES
+
+      - name: Run Duster Fix on Modified Files
+        if: env.FILES != ''
+        run: ./vendor/bin/duster fix $FILES
+
+      - name: Run Duster Lint on Modified Files
+        if: env.FILES != ''
+        run: ./vendor/bin/duster lint $FILES
+
+      - name: Auto Commit Fixes
+        if: env.FILES != ''
+        uses: stefanzweifel/git-auto-commit-action@v5
+        id: auto_commit_action
+        with:
+          commit_message: "Apply automated code formatting & linting fixes"
+          commit_user_name: "GitHub Action"
+          commit_user_email: "actions@github.com"
+
+      - name: Ignore Duster Commit in Git Blame
+        if: steps.auto_commit_action.outputs.changes_detected == 'true'
+        run: echo ${{ steps.auto_commit_action.outputs.commit_hash }} >> .git-blame-ignore-revs
+
+      - name: Commit Blame Ignore Updates
+        if: steps.auto_commit_action.outputs.changes_detected == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Ignore auto-formatting in git blame"
+          commit_user_name: "GitHub Action"
+          commit_user_email: "actions@github.com"
