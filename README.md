@@ -1,9 +1,9 @@
 # Laravel Dev Kit
 
 ![Code Quality](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/code-quality.yml/badge.svg)
-![Laravel Tests](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/laravel.yml/badge.svg)
-![Linting](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/lint.yml/badge.svg)
-![Prettier Formatting](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/prettier-write.yml/badge.svg)
+![Prettier Code Style](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/prettier.yml/badge.svg)
+![Laravel Pint](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/pint.yml/badge.svg)
+![Duster Lint](https://github.com/shaz3e/laravel-dev-kit/actions/workflows/duster.yml/badge.svg)
 
 ![GitHub Repo Stars](https://img.shields.io/github/stars/shaz3e/laravel-dev-kit)
 ![GitHub Forks](https://img.shields.io/github/forks/shaz3e/laravel-dev-kit)

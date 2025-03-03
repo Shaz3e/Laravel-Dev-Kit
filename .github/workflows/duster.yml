@@ -1,4 +1,4 @@
-name: Code Quality Checks
+name: Duster Lint & Fix
 
 on:
     push:
@@ -6,21 +6,12 @@ on:
     pull_request:
 
 jobs:
-    code_quality:
+    duster:
         runs-on: ubuntu-latest
 
         steps:
             - name: Checkout Code
               uses: actions/checkout@v4
-
-            - name: Set Up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-                  cache: 'npm'
-
-            - name: Install Node.js Dependencies
-              run: npm install
 
             - name: Set Up PHP
               uses: shivammathur/setup-php@v2
@@ -32,23 +23,22 @@ jobs:
             - name: Install Composer Dependencies
               run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-            - name: Get Modified Files
+            - name: Get Modified PHP Files
               id: changed_files
-              run: |
-                  echo "FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -E '\.(php|blade\.php)$' | xargs)" >> $GITHUB_ENV
+              run: echo "FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -E '\.php$' | xargs)" >> $GITHUB_ENV
 
-            - name: Run All Code Quality Tools
+            - name: Run Duster Fix on Modified PHP Files
               if: env.FILES != ''
-              run: |
-                  npx prettier --write $FILES
-                  ./vendor/bin/pint $FILES
-                  ./vendor/bin/duster fix $FILES
-                  ./vendor/bin/duster lint $FILES
+              run: ./vendor/bin/duster fix $FILES
+
+            - name: Run Duster Lint on Modified PHP Files
+              if: env.FILES != ''
+              run: ./vendor/bin/duster lint $FILES
 
             - name: Auto Commit Fixes
               if: env.FILES != ''
               uses: stefanzweifel/git-auto-commit-action@v5
               with:
-                  commit_message: 'Apply automated code quality fixes'
+                  commit_message: 'Apply Duster fixes'
                   commit_user_name: 'GitHub Action'
                   commit_user_email: 'actions@github.com'
