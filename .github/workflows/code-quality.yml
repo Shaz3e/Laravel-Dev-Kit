@@ -1,54 +1,54 @@
 name: Code Quality Checks
 
 on:
-    push:
-        branches: [main]
-    pull_request:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
-    code_quality:
-        runs-on: ubuntu-latest
+  code_quality:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-            - name: Set Up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-                  cache: 'npm'
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
 
-            - name: Install Node.js Dependencies
-              run: npm install
+      - name: Install Node.js Dependencies
+        run: npm install
 
-            - name: Set Up PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 8.2
-                  tools: composer
-                  coverage: none
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          tools: composer
+          coverage: none
 
-            - name: Install Composer Dependencies
-              run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-            - name: Get Modified Files
-              id: changed_files
-              run: |
-                  echo "FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -E '\.(php|blade\.php)$' | xargs)" >> $GITHUB_ENV
+      - name: Get Modified Files
+        id: changed_files
+        run: |
+          echo "FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -E '\.(php|blade\.php)$' | xargs)" >> $GITHUB_ENV
 
-            - name: Run All Code Quality Tools
-              if: env.FILES != ''
-              run: |
-                  npx prettier --write $FILES
-                  ./vendor/bin/pint $FILES
-                  ./vendor/bin/duster fix $FILES
-                  ./vendor/bin/duster lint $FILES
+      - name: Run All Code Quality Tools
+        if: env.FILES != ''
+        run: |
+          npx prettier --write $FILES
+          ./vendor/bin/pint $FILES
+          ./vendor/bin/duster fix $FILES
+          ./vendor/bin/duster lint $FILES
 
-            - name: Auto Commit Fixes
-              if: env.FILES != ''
-              uses: stefanzweifel/git-auto-commit-action@v5
-              with:
-                  commit_message: 'Apply automated code quality fixes'
-                  commit_user_name: 'GitHub Action'
-                  commit_user_email: 'actions@github.com'
+      - name: Auto Commit Fixes
+        if: env.FILES != ''
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Apply automated code quality fixes"
+          commit_user_name: "GitHub Action"
+          commit_user_email: "actions@github.com"

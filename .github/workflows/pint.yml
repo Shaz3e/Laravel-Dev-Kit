@@ -1,9 +1,9 @@
 name: Laravel Pint Code Style
 
 on:
-    push:
-        branches: [ main ]
-    pull_request:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
   pint:
@@ -16,7 +16,7 @@ jobs:
       - name: Set Up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: 8.4
           tools: composer
           coverage: none
 
