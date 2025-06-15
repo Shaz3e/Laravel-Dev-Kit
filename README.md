@@ -1,10 +1,14 @@
 # Laravel Dev Kit
 
 ![Code Quality Checks](https://github.com/Shaz3e/Laravel-Dev-Kit/actions/workflows/code-quality.yml/badge.svg)
-![Duster Fix](https://github.com/Shaz3e/Laravel-Dev-Kit/actions/workflows/duster-fix-blame.yml/badge.svg)
-![Duster Lint & Fix](https://github.com/Shaz3e/Laravel-Dev-Kit/actions/workflows/duster.yml/badge.svg)
-![Laravel Pint Code Style](https://github.com/Shaz3e/Laravel-Dev-Kit/actions/workflows/pint.yml/badge.svg)
-![Prettier Code Formatting](https://github.com/Shaz3e/Laravel-Dev-Kit/actions/workflows/prettier.yml/badge.svg)
+
+## Git Blame Configuration for Formatting Commits
+
+To avoid cluttering `git blame` output with automatic formatting commits, please run this command once after cloning the repository:
+
+```bash
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
 
 Laravel Dev Kit is a starter kit for Laravel applications, designed to save time and set up your projects with a standardized environment. It includes pre-configured tools for code linting, formatting, and CI/CD workflows, ensuring code quality and consistency.
 
