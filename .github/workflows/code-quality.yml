@@ -35,20 +35,36 @@ jobs:
       - name: Get Modified Files
         id: changed_files
         run: |
-          echo "FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep -E '\.(php|blade\.php)$' | xargs)" >> $GITHUB_ENV
+          echo "FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | xargs)" >> $GITHUB_ENV
 
-      - name: Run All Code Quality Tools
+      - name: Run Prettier (JS, Blade, etc.)
+        if: env.FILES != ''
+        run: npx prettier --write $FILES
+
+      - name: Run Duster (includes Pint + more)
         if: env.FILES != ''
         run: |
-          npx prettier --write $FILES
-          ./vendor/bin/pint $FILES
           ./vendor/bin/duster fix $FILES
           ./vendor/bin/duster lint $FILES
 
       - name: Auto Commit Fixes
         if: env.FILES != ''
-        uses: stefanzweifel/git-auto-commit-action@v5
+        id: auto_commit
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Apply automated code quality fixes"
+          commit_user_name: "GitHub Action"
+          commit_user_email: "actions@github.com"
+
+      - name: Add Auto-Fix Commit to .git-blame-ignore-revs
+        if: env.FILES != ''
+        run: echo "${{ steps.auto_commit.outputs.commit_hash }}" >> .git-blame-ignore-revs
+        continue-on-error: true
+
+      - name: Commit .git-blame-ignore-revs Update
+        if: env.FILES != ''
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "Update .git-blame-ignore-revs with formatting commit"
           commit_user_name: "GitHub Action"
           commit_user_email: "actions@github.com"
