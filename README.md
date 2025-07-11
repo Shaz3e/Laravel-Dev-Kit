@@ -40,7 +40,7 @@ Laravel Dev Kit is a starter kit for Laravel applications, designed to save time
 
 ```plaintext
 /
-|-- .gitHub
+|-- .github
 |   |-- workflows
 |   |   |-- auto-merge-dependabot.yml
 |   |   |-- code-quality.yml.yml
