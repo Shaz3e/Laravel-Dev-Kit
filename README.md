@@ -17,22 +17,20 @@ Laravel Dev Kit is a starter kit for Laravel applications, designed to save time
 ## Features
 
 - **CI/CD Workflows**: Pre-configured GitHub Actions workflows for:
-
-    - PHP linting
-    - Fixing common coding issues
-    - Prettier integration
-    - Automated testing with Laravel
+  - PHP linting
+  - Fixing common coding issues
+  - Prettier integration
+  - Automated testing with Laravel
 
 - **Husky Pre-Commit Hooks**: Automatically run linting and formatting tasks before committing changes.
 
 - **Linting and Formatting**:
-
-    - `Pint` for PHP code formatting
-    - Prettier for JavaScript, CSS, and other frontend assets
+  - `Pint` for PHP code formatting
+  - Prettier for JavaScript, CSS, and other frontend assets
 
 - **Custom Configuration Files**:
-    - `.prettierrc` and `.prettierignore` for Prettier
-    - `lint-staged.config.js` for staged file linting
+  - `.prettierrc` and `.prettierignore` for Prettier
+  - `lint-staged.config.js` for staged file linting
 
 ---
 
@@ -95,6 +93,7 @@ Laravel Dev Kit is a starter kit for Laravel applications, designed to save time
 4. Copy `.env.example` to `.env` for your Laravel application.
 
 5. Generate Key
+
     ```bash
     php artisan key:generate
     ```
